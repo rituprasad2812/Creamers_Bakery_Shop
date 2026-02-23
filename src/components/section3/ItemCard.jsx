@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 const ItemCard = () => {
   return (
     <motion.div 
-      className="bg-pink-50 w-75 h-88 m-5 rounded-sm flex flex-col items-center pt-5 text-amber-950"
+      className="bg-pink-50 w-75 h-88 m-5 rounded-sm flex flex-col items-center pt-5 text-amber-950 border-2 border-amber-950"
       initial={{ rotateY: 90, opacity: 0 }}
       whileInView={{ rotateY: 0, opacity: 1 }}
       viewport={{ once: true }}

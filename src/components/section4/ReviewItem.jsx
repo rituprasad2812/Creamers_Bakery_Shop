@@ -7,7 +7,6 @@ const ReviewItem = () => {
         <img src="assets/profile1.jpg" class="w-full h-full object-cover" />
       </div>
       
-      {/* Review box - pulled up to overlap */}
       <div className="bg-pink-50 w-72 rounded-2xl shadow-md px-6 pt-12 pb-6 -mt-10 text-center">
         <h3 className="font-bold text-lg text-amber-950">Sarah Johnson</h3>
         <p className="text-gray-600 text-sm mt-2">

@@ -2,9 +2,9 @@ import React from 'react'
 
 const Navbar = () => {
   return (
-    <div class="flex items-center">
+    <div class="flex items-center border-b-2 border-t-2 border-amber-950">
         <div class="font-playball text-5xl text-amber-950 font-bold px-4" >Creamers</div>
-        <div class="flex w-full h-12 justify-end gap-10 pr-10 font-mitr text-1.5xl items-center  text-amber-950">
+        <div class="flex w-full h-15 justify-end gap-10 pr-10 font-mitr text-1.5xl items-center text-amber-950">
         <span>Menu</span>
         <span>Gallery</span>
         <span>About Us</span>

@@ -23,7 +23,7 @@ const Hero = () => {
         ))}
       </div>
       <pre className="pl-2 max-w-lg whitespace-normal leading-relaxed font-mitr">Discover the perfect balance of texture and flavor with our wide selection of artisan breads and pastries, made daily using only the finest local ingredients.</pre>
-      <button className="mt-3 bg-pink-300 text-amber-950 px-10 py-3 rounded-full text-xl w-50">Order Now</button>
+      <button className="mt-3 bg-pink-300 text-amber-950 px-10 py-3 rounded-full text-xl w-50 border-2 border-amber-950">Order Now</button>
     </div>
   )
 }
