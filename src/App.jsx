@@ -1,20 +1,18 @@
 import React from 'react'
-import Section1 from './components/section1/Section1'
-import Section2 from './components/section2/Section2'
-import Section3 from './components/section3/Section3'
-import Section4 from './components/section4/Section4'
-import Section5 from './components/section5/Section5'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
 
-const App = () => {
-
+function App() {
   return (
-    <div class="bg-pink-200">
-      <Section1 />
-      <Section2 />
-      <Section3 />
-      <Section4 />
-      <Section5 />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
+    </Router>
   )
 }
 
