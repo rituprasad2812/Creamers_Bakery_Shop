@@ -19,7 +19,7 @@ const ItemCard = () => {
         <p className="font-bold text-2xl">₹ 300/-</p>
         
         <motion.button 
-          className="border-2 px-5 py-1 rounded-2xl"
+          className="border-2 px-5 py-1 rounded-2xl bg-pink-200"
           whileHover={{ scale: 1.1 }}
           transition={{ duration: 0 }}
         >

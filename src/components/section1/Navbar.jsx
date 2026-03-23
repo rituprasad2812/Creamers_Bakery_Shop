@@ -35,7 +35,7 @@ const Navbar = ({ variant = "home", categoryName = "", cartCount = 0 }) => {
   // MENU PAGE VERSION (simplified with back button + cart)
   if (variant === "menu") {
     return (
-      <div className="flex justify-between items-center px-10 py-5 border-b-2 border-amber-950">
+      <div className="flex justify-between items-center px-10 py-5 border-b-2 border-t-2 border-pink-950 bg-pink-300">
         
         {/* Back Button */}
         <Link to="/">
@@ -43,7 +43,7 @@ const Navbar = ({ variant = "home", categoryName = "", cartCount = 0 }) => {
         </Link>
 
         {/* Category Name */}
-        <h1 className="font-playball text-4xl text-amber-950">{categoryName}</h1>
+        <h1 className="font-playball text-5xl text-amber-950 font-bold capitalize ">{categoryName}</h1>
 
         {/* Cart Icon */}
         <Link to="/cart" className="relative">

@@ -10,7 +10,9 @@ const Home = () => {
   return (
     <div class="bg-pink-200">
       <Section1 />
+      <div id="menu">
       <Section2 />
+      </div>
       <Section3 />
       <Section4 />
       <Section5 />

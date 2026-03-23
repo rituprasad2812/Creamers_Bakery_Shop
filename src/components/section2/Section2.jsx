@@ -9,7 +9,6 @@ import customs from '../../assets/customs.avif'
 import { Link } from 'react-router-dom'
 
 
-
 const Section2 = () => {
   const containerRef = useRef(null)
 
@@ -69,7 +68,7 @@ const Section2 = () => {
                   <h3 className="font-playball text-5xl text-white drop-shadow-lg mb-4">
                     {item.name}
                   </h3>
-                  <Link to={'/menu/${item.name.toLowerCase()}'}>
+                  <Link to={`/menu/${item.name.toLowerCase()}`}>
                     <motion.button className="bg-white/90 text-amber-950 font-mitr px-8 py-3 rounded-full hover:bg-white transition-all"
                       whileHover={{ scale: 1.07, backgroundColor: "black", color: "white" }}
                       whileTap={{ scale: 0.7 }}>
