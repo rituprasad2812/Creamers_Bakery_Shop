@@ -3,10 +3,12 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { useCart } from '../../context/CartContext'
 
-const Navbar = ({ variant = "home", categoryName = "", cartCount = 0 }) => {
+const Navbar = ({ variant = "home", categoryName = "" }) => {
+  const { cartCount } = useCart()
   
-  // HOME VERSION (your current one)
+  // HOME VERSION
   if (variant === "home") {
     return (
       <div className="flex items-center border-b-2 border-t-2 border-amber-950">
@@ -32,20 +34,17 @@ const Navbar = ({ variant = "home", categoryName = "", cartCount = 0 }) => {
     )
   }
 
-  // MENU PAGE VERSION (simplified with back button + cart)
+  // MENU PAGE VERSION
   if (variant === "menu") {
     return (
       <div className="flex justify-between items-center px-10 py-5 border-b-2 border-t-2 border-pink-950 bg-pink-300">
         
-        {/* Back Button */}
         <Link to="/">
           <FontAwesomeIcon icon={faArrowLeft} className="text-2xl text-amber-950 cursor-pointer" />
         </Link>
 
-        {/* Category Name */}
-        <h1 className="font-playball text-5xl text-amber-950 font-bold capitalize ">{categoryName}</h1>
+        <h1 className="font-playball text-5xl text-amber-950 font-bold capitalize">{categoryName}</h1>
 
-        {/* Cart Icon */}
         <Link to="/cart" className="relative">
           <FontAwesomeIcon icon={faShoppingCart} className="text-2xl text-amber-950" />
           {cartCount > 0 && (

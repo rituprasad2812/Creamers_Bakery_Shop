@@ -1,33 +1,30 @@
-import React from 'react'
-import Navbar from '../components/section1/Navbar'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import Navbar from '../components/section1/Navbar'
 import ItemCard from '../components/section3/ItemCard'
-import Filters from '../components/Filters'
+import axios from 'axios'
 
 const MenuPage = () => {
   const { category } = useParams()
-  
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    axios.get(`http://localhost:5000/api/products/category/${category}`)
+      .then(res => setProducts(res.data))
+      .catch(err => console.log(err))
+  }, [category])
+
   return (
-    <div>
-      <Navbar variant="menu" categoryName={category} cartCount={3} />
-      <Filters />
-      <div class=" flex flex-wrap justify-evenly bg-white" >
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
+    <div className="min-h-screen bg-pink-100">
+      <Navbar variant="menu" categoryName={category.charAt(0).toUpperCase() + category.slice(1)} />
+
+      <div className="p-10">
+        <div className="flex flex-wrap justify-center">
+          {products.map((product) => (
+            <ItemCard key={product._id} product={product} />
+          ))}
+        </div>
       </div>
     </div>
   )
