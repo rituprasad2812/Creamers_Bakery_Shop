@@ -8,10 +8,10 @@ import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 
 const Section5 = () => {
   return (
-    <FadeInSection className="min-h-screen w-full bg-pink-200 py-20">
+    <FadeInSection className="min-h-screen w-full bg-pink-200 py-5">
       
       {/* Heading */}
-      <h2 className="font-playball text-7xl text-amber-950 text-center mb-4 font-semibold">Get In Touch</h2>
+      <h2 className="font-playball text-7xl text-amber-950 text-center font-semibold">Get In Touch</h2>
       <p className="font-mitr text-amber-950 text-center mb-16">We'd Love to Hear From You</p>
 
       <div className="flex justify-center gap-20 flex-wrap px-10">
@@ -89,7 +89,7 @@ const Section5 = () => {
 
       {/* Footer */}
       <div className="text-center mt-20 text-amber-950 font-mitr">
-        <p>© 2024 Creamers Bakery. Made with 🤎</p>
+        <p>Creamers Bakery. Made with 🤎</p>
       </div>
 
     </FadeInSection>

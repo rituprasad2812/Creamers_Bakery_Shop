@@ -6,3 +6,10 @@
   --font-playball: "Playball", cursive;
   --font-mitr: "Mitr", sans-serif;
 }
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
