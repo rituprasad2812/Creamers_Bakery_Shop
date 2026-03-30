@@ -1,47 +1,99 @@
-import { scale } from 'motion/react'
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { motion } from 'motion/react'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import axios from 'axios'
+import { useAuth } from '../context/AuthContext'
 
 const Login = () => {
-    return (
-        <div class="flex">
-            <div class="min-h-screen w-285 bg-[url('assets/contactbg.avif')] bg-no-repeat bg-cover">
-            </div>
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const { login } = useAuth()
+  const navigate = useNavigate()
 
-            <div class="bg-pink-200 w-145 border-l-2 border-amber-950 pt-20">
-                <p class="font-playball font-semibold text-6xl text-center text-amber-950 ">Welcome Back to Creamers!</p>
-                <p class="font-mitr text-amber-950 text-center pb-10 pt-2">Login to continue your sweet journey...</p>
+  const handleLogin = async (e) => {
+    e.preventDefault()
+    setError('')
 
-                <div class="flex flex-col gap-5 items-center">
-                    <label> Email: <br></br>
-                        <input type="Email" placeholder="Your Email" class="h-10 w-100 border-2 rounded-2xl px-4 text-sm bg-white" />
-                    </label>
-                    <label> Password: <br></br>
-                        <input type="text" placeholder="Your Password" class="h-10 w-100 border-2 rounded-2xl px-4 text-sm bg-white" />
-                    </label>
-                </div>
-                <div class="text-center">
-                    <motion.button class=" text-center text-lg font-medium bg-amber-950 text-white font-mitr rounded-3xl px-16 py-2 m-10 cursor-pointer border-2 border-amber-950"
-                    whileHover={{backgroundColor: "white", color: "black", borderColor: "black"}}
-                    whileTap={{scale: 0.7}}
-                    >
-                        Login
-                        </motion.button>
-                </div>
-                <div class="flex justify-center items-center gap-3 pt-45">
-                    <p class="font-mitr text-amber-950 ">Don't have an Account?</p>
-                    <Link to="/signup">
-                        <motion.div className="border-b text-pink-600"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >Create account
-                        </motion.div>
-                    </Link>
-                </div>
-            </div>
+    try {
+      const res = await axios.post('http://localhost:5000/api/auth/login', {
+        email,
+        password
+      })
+      
+      login(res.data.user, res.data.token)
+      alert('Login successful!')
+      navigate('/')
+    } catch (err) {
+      setError(err.response?.data?.msg || 'Login failed. Please check your credentials.')
+    }
+  }
+
+  return (
+    <div className="flex">
+      <div className="min-h-screen w-285 bg-[url('assets/contactbg.avif')] bg-no-repeat bg-cover"></div>
+
+      <div className="bg-pink-200 w-145 border-l-2 border-amber-950 pt-20">
+        <p className="font-playball font-semibold text-6xl text-center text-amber-950">Welcome Back to Creamers!</p>
+        <p className="font-mitr text-amber-950 text-center pb-10 pt-2">Login to continue your sweet journey...</p>
+
+        {error && (
+          <p className="bg-red-100 text-red-600 p-3 rounded-lg mx-10 mb-4 text-center font-mitr">{error}</p>
+        )}
+
+        <form onSubmit={handleLogin}>
+          <div className="flex flex-col gap-5 items-center">
+            <label className="font-mitr text-amber-950">
+              Email: <br />
+              <input 
+                type="email" 
+                placeholder="Your Email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="h-10 w-100 border-2 rounded-2xl px-4 text-sm bg-white focus:outline-none focus:border-pink-400" 
+              />
+            </label>
+            <label className="font-mitr text-amber-950">
+              Password: <br />
+              <input 
+                type="password" 
+                placeholder="Your Password" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="h-10 w-100 border-2 rounded-2xl px-4 text-sm bg-white focus:outline-none focus:border-pink-400" 
+              />
+            </label>
+          </div>
+          
+          <div className="text-center">
+            <motion.button 
+              type="submit"
+              className="text-center text-lg font-medium bg-amber-950 text-white font-mitr rounded-3xl px-16 py-2 m-10 cursor-pointer border-2 border-amber-950"
+              whileHover={{ backgroundColor: "white", color: "black", borderColor: "black" }}
+              whileTap={{ scale: 0.7 }}
+            >
+              Login
+            </motion.button>
+          </div>
+        </form>
+
+        <div className="flex justify-center items-center gap-3 pt-45">
+          <p className="font-mitr text-amber-950">Don't have an Account?</p>
+          <Link to="/signup">
+            <motion.div 
+              className="border-b text-pink-600 font-mitr cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Create account
+            </motion.div>
+          </Link>
         </div>
-    )
+      </div>
+    </div>
+  )
 }
 
 export default Login

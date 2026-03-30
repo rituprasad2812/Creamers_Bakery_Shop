@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { useCart } from '../../context/CartContext'
+import { useAuth } from '../../context/AuthContext'
 
 const Navbar = ({ variant = "home", categoryName = "" }) => {
   const { cartCount } = useCart()
+  const { user, logout } = useAuth()
   
   // HOME VERSION
   if (variant === "home") {
@@ -19,16 +21,32 @@ const Navbar = ({ variant = "home", categoryName = "" }) => {
           <span>About Us</span>
           <span>Reviews</span>
           <span>Contact Us</span>
-          <Link to="/login">
-            <motion.button 
-              className="bg-pink-300 px-6 py-2 rounded-3xl text-amber-950 border-2 border-amber-950 cursor-pointer"
-              whileHover={{ scale: 1.06, backgroundColor: "white" }}
-              whileTap={{ scale: 1 }}
-              transition={{ duration: 0 }}
-            >
-              Login
-            </motion.button>
-          </Link>
+          
+          {user ? (
+            <>
+              <span className="text-pink-500">Hi, {user.name.split(' ')[0]}</span>
+              <motion.button 
+                onClick={logout}
+                className="bg-pink-300 px-6 py-2 rounded-3xl text-amber-950 border-2 border-amber-950 cursor-pointer"
+                whileHover={{ scale: 1.06, backgroundColor: "white" }}
+                whileTap={{ scale: 1 }}
+                transition={{ duration: 0 }}
+              >
+                Logout
+              </motion.button>
+            </>
+          ) : (
+            <Link to="/login">
+              <motion.button 
+                className="bg-pink-300 px-6 py-2 rounded-3xl text-amber-950 border-2 border-amber-950 cursor-pointer"
+                whileHover={{ scale: 1.06, backgroundColor: "white" }}
+                whileTap={{ scale: 1 }}
+                transition={{ duration: 0 }}
+              >
+                Login
+              </motion.button>
+            </Link>
+          )}
         </div>
       </div>
     )

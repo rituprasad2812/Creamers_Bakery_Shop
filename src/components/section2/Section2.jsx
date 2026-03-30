@@ -40,7 +40,7 @@ const MenuCard = ({ item, index, scrollYProgress, total }) => {
           {item.name}
         </h3>
         <Link to={`/menu/${item.name.toLowerCase().replace(' ', '-')}`}>
-          <button className="bg-white/90 text-amber-950 font-mitr px-8 py-3 rounded-full hover:bg-white transition-all">
+          <button className="bg-white/90 text-amber-950 font-mitr px-8 py-3 rounded-full hover:bg-white transition-all cursor-pointer">
             View All
           </button>
         </Link>

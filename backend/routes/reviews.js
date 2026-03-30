@@ -6,7 +6,7 @@ const router = express.Router()
 // GET all reviews (for homepage)
 router.get('/all', async (req, res) => {
   try {
-    const reviews = await Review.find().sort({ createdAt: -1 }).limit(10)
+    const reviews = await Review.find().sort({ createdAt: -1 }).limit(7)
     res.json(reviews)
   } catch (err) {
     res.status(500).json({ error: err.message })
