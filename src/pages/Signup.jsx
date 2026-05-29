@@ -12,6 +12,10 @@ const Signup = () => {
   const { login } = useAuth()
   const navigate = useNavigate()
 
+  if (user) {
+    return <Navigate to="/" />
+  }
+
   const handleSignup = async (e) => {
     e.preventDefault()
     setError('')

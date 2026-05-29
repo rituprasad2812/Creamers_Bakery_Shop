@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import axios from 'axios'
 import Navbar from '../components/section1/Navbar'
 import { motion } from 'framer-motion'
 import { useCart } from '../context/CartContext'
+import { useAuth } from '../context/AuthContext'
 import ReviewItem from '../components/section4/ReviewItem'
 
 const ProductDetail = () => {
@@ -15,6 +16,7 @@ const ProductDetail = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [cakeName, setCakeName] = useState('')
   const { addToCart, cartCount } = useCart()
+  const { user } = useAuth()
   const [reviewName, setReviewName] = useState('')
   const [reviewRating, setReviewRating] = useState(5)
   const [reviewText, setReviewText] = useState('')
@@ -69,7 +71,6 @@ const ProductDetail = () => {
       })
       .catch(err => console.log(err))
 
-    // Fixed URL - using /product/ path
     axios.get(`http://localhost:5000/api/reviews/product/${id}`)
       .then(res => setReviews(res.data))
       .catch(err => console.log(err))
@@ -256,19 +257,32 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            <motion.button
-              onClick={handleAddToCart}
-              className="w-full bg-pink-400 text-white py-4 rounded-full font-mitr text-xl hover:bg-pink-500 border-2 border-amber-950"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Add to Cart - ₹{finalPrice}
-            </motion.button>
+            {/* Add to Cart / Login to Buy */}
+            {user ? (
+              <motion.button
+                onClick={handleAddToCart}
+                className="w-full bg-pink-400 text-white py-4 rounded-full font-mitr text-xl hover:bg-pink-500 border-2 border-amber-950"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Add to Cart - ₹{finalPrice}
+              </motion.button>
+            ) : (
+              <Link to="/login">
+                <motion.button
+                  className="w-full bg-gray-400 text-white py-4 rounded-full font-mitr text-xl hover:bg-gray-500 border-2 border-gray-600"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Login to Buy
+                </motion.button>
+              </Link>
+            )}
 
           </motion.div>
         </div>
 
-        {/* Reviews Section - ONLY ONE */}
+        {/* Reviews Section */}
         <div className="mt-16 bg-amber-50 rounded-3xl p-8">
           <div className="flex justify-between items-center mb-6">
             <h2 className="font-playball text-4xl text-amber-950">Customer Reviews</h2>
@@ -294,58 +308,74 @@ const ProductDetail = () => {
           )}
         </div>
 
-        {/* Add Review Form */}
-        <div className="mt-10 bg-white rounded-3xl p-8 shadow-xl">
-          <h2 className="font-playball text-4xl text-amber-950 mb-6">Write a Review</h2>
+        {/* Add Review Form - Login Required */}
+        {user ? (
+          <div className="mt-10 bg-white rounded-3xl p-8 shadow-xl">
+            <h2 className="font-playball text-4xl text-amber-950 mb-6">Write a Review</h2>
 
-          <form onSubmit={handleSubmitReview}>
-            <div className="mb-4">
-              <label className="font-mitr font-bold text-amber-950 block mb-2">Your Name:</label>
-              <input
-                type="text"
-                value={reviewName}
-                onChange={(e) => setReviewName(e.target.value)}
-                placeholder="Enter your name"
-                required
-                className="w-full px-4 py-3 border-2 border-pink-300 rounded-2xl font-mitr bg-pink-50 focus:outline-none focus:border-pink-500 text-amber-950 placeholder-gray-400"
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="font-mitr font-bold text-amber-950 block mb-2">Rating:</label>
-              <div className="flex gap-2">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <span
-                    key={star}
-                    onClick={() => setReviewRating(star)}
-                    className={`text-3xl cursor-pointer ${star <= reviewRating ? 'text-yellow-400' : 'text-gray-300'}`}
-                  >
-                    ★
-                  </span>
-                ))}
+            <form onSubmit={handleSubmitReview}>
+              <div className="mb-4">
+                <label className="font-mitr font-bold text-amber-950 block mb-2">Your Name:</label>
+                <input
+                  type="text"
+                  value={reviewName}
+                  onChange={(e) => setReviewName(e.target.value)}
+                  placeholder="Enter your name"
+                  required
+                  className="w-full px-4 py-3 border-2 border-pink-300 rounded-2xl font-mitr bg-pink-50 focus:outline-none focus:border-pink-500 text-amber-950 placeholder-gray-400"
+                />
               </div>
-            </div>
 
-            <div className="mb-6">
-              <label className="font-mitr font-bold text-amber-950 block mb-2">Your Review:</label>
-              <textarea
-                value={reviewText}
-                onChange={(e) => setReviewText(e.target.value)}
-                placeholder="Share your experience..."
-                required
-                rows={4}
-                className="w-full px-4 py-3 border-2 border-pink-300 rounded-2xl font-mitr bg-pink-50 focus:outline-none focus:border-pink-500 text-amber-950 placeholder-gray-400 resize-none"
-              />
-            </div>
+              <div className="mb-4">
+                <label className="font-mitr font-bold text-amber-950 block mb-2">Rating:</label>
+                <div className="flex gap-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <span
+                      key={star}
+                      onClick={() => setReviewRating(star)}
+                      className={`text-3xl cursor-pointer ${star <= reviewRating ? 'text-yellow-400' : 'text-gray-300'}`}
+                    >
+                      ★
+                    </span>
+                  ))}
+                </div>
+              </div>
 
-            <button
-              type="submit"
-              className="bg-pink-400 text-white px-8 py-3 rounded-full font-mitr text-lg hover:bg-pink-500 border-2 border-amber-950"
-            >
-              Submit Review
-            </button>
-          </form>
-        </div>
+              <div className="mb-6">
+                <label className="font-mitr font-bold text-amber-950 block mb-2">Your Review:</label>
+                <textarea
+                  value={reviewText}
+                  onChange={(e) => setReviewText(e.target.value)}
+                  placeholder="Share your experience..."
+                  required
+                  rows={4}
+                  className="w-full px-4 py-3 border-2 border-pink-300 rounded-2xl font-mitr bg-pink-50 focus:outline-none focus:border-pink-500 text-amber-950 placeholder-gray-400 resize-none"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="bg-pink-400 text-white px-8 py-3 rounded-full font-mitr text-lg hover:bg-pink-500 border-2 border-amber-950"
+              >
+                Submit Review
+              </button>
+            </form>
+          </div>
+        ) : (
+          <div className="mt-10 bg-white rounded-3xl p-8 shadow-xl text-center">
+            <h2 className="font-playball text-4xl text-amber-950 mb-4">Write a Review</h2>
+            <p className="font-mitr text-gray-600 mb-6">Please login to share your experience</p>
+            <Link to="/login">
+              <motion.button
+                className="bg-pink-400 text-white px-8 py-3 rounded-full font-mitr hover:bg-pink-500 border-2 border-amber-950"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Login to Review
+              </motion.button>
+            </Link>
+          </div>
+        )}
 
       </div>
     </div>

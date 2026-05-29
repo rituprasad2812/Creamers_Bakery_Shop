@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import FadeInSection from '../FadeInSection'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
 
 const menuItems = [
   { name: "Cakes", image: "/assets/cake.avif", color: "bg-purple-100" },
@@ -11,13 +12,21 @@ const menuItems = [
   { name: "Custom Orders", image: "/assets/customs.avif", color: "bg-rose-100" },
 ]
 
-const MenuCard = ({ item, index, scrollYProgress, total }) => {
+const MenuCard = ({ item, index, scrollYProgress, total, user }) => {
   const start = index * 0.18
   const end = start + 0.18
 
   const x = useTransform(scrollYProgress, [start, end], [0, -1000])
   const rotate = useTransform(scrollYProgress, [start, end], [0, -30])
   const opacity = useTransform(scrollYProgress, [start, end - 0.05], [1, 0])
+
+  // Custom Orders requires login
+  const getLink = () => {
+    if (item.name === "Custom Orders" && !user) {
+      return "/login"
+    }
+    return `/menu/${item.name.toLowerCase().replace(' ', '-')}`
+  }
 
   return (
     <motion.div
@@ -39,9 +48,9 @@ const MenuCard = ({ item, index, scrollYProgress, total }) => {
         <h3 className="font-playball text-5xl text-white drop-shadow-lg mb-4">
           {item.name}
         </h3>
-        <Link to={`/menu/${item.name.toLowerCase().replace(' ', '-')}`}>
+        <Link to={getLink()}>
           <button className="bg-white/90 text-amber-950 font-mitr px-8 py-3 rounded-full hover:bg-white transition-all cursor-pointer">
-            View All
+            {item.name === "Custom Orders" && !user ? "Login to Order" : "View All"}
           </button>
         </Link>
       </div>
@@ -51,6 +60,7 @@ const MenuCard = ({ item, index, scrollYProgress, total }) => {
 
 const Section2 = () => {
   const containerRef = useRef(null)
+  const { user } = useAuth()
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -72,6 +82,7 @@ const Section2 = () => {
               index={index}
               scrollYProgress={scrollYProgress}
               total={menuItems.length}
+              user={user}
             />
           ))}
         </div>

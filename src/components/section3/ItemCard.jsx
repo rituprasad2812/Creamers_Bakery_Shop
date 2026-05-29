@@ -1,10 +1,11 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
 
 const ItemCard = ({ product }) => {
-  console.log('Product data:', product) 
-  console.log('Product ID:', product._id) 
+  const { user } = useAuth()
+
   return (
     <Link to={`/product/${product._id}`}>
       <motion.div 
@@ -26,11 +27,11 @@ const ItemCard = ({ product }) => {
           <p className="font-bold text-2xl">₹{product.price}/-</p>
           
           <motion.button 
-            className="border-2 px-5 py-1 rounded-2xl bg-pink-200"
+            className={`border-2 px-5 py-1 rounded-2xl ${user ? 'bg-pink-200' : 'bg-gray-200'}`}
             whileHover={{ scale: 1.1 }}
             transition={{ duration: 0 }}
           >
-            Buy Now
+            {user ? 'Buy Now' : 'Login to Buy'}
           </motion.button>
         </div>
       </motion.div>

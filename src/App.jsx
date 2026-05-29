@@ -8,9 +8,10 @@ import Signup from './pages/Signup'
 import MenuPage from './pages/MenuPage'
 import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
-import CustomOrders from './pages/CustomOrders'
 import Checkout from './pages/Checkout'
 import OrderSuccess from './pages/OrderSuccess'
+import CustomOrders from './pages/CustomOrders'
+import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   return (
@@ -21,12 +22,14 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path='/menu/custom-orders' element = {<CustomOrders/>} />
             <Route path="/menu/:category" element={<MenuPage />} />
             <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/order-success" element={<OrderSuccess />} />
+            
+            {/* Protected Routes - Login Required */}
+            <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+            <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+            <Route path="/menu/custom-orders" element={<ProtectedRoute><CustomOrders /></ProtectedRoute>} />
+            <Route path="/order-success" element={<ProtectedRoute><OrderSuccess /></ProtectedRoute>} />
           </Routes>
         </Router>
       </CartProvider>
