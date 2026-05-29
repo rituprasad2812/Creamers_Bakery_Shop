@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'motion/react'
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 const Hero = () => {
   const text = "Creamers";
@@ -23,9 +24,11 @@ const Hero = () => {
           </motion.span>
         ))}
       </div>
+
       <pre className="pl-2 max-w-lg whitespace-normal leading-relaxed font-mitr">Discover the perfect balance of texture and flavor with our wide selection of artisan breads and pastries, made daily using only the finest local ingredients.</pre>
+      <HashLink smooth to ="/#gallery-section">
       <motion.button onClick={()=> document.getElementById('menu').scrollIntoView({behavior: 'smooth'})} className="mt-3 bg-pink-300 text-amber-950 px-10 py-3 rounded-full text-xl w-50 border-2 border-amber-950"
-      whileTap={{scale:0.76}}>Order Now</motion.button>
+      whileTap={{scale:0.76}}>Order Now</motion.button></HashLink>
     </div>
   )
 }

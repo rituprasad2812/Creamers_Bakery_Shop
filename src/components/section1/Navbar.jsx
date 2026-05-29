@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { useCart } from '../../context/CartContext'
 import { useAuth } from '../../context/AuthContext'
+import { HashLink } from 'react-router-hash-link';
 
 const Navbar = ({ variant = "home", categoryName = "" }) => {
   const { cartCount } = useCart()
@@ -16,11 +17,34 @@ const Navbar = ({ variant = "home", categoryName = "" }) => {
       <div className="flex items-center border-b-2 border-t-2 border-amber-950">
         <div className="font-playball text-5xl text-amber-950 font-bold px-4">Creamers</div>
         <div className="flex w-full h-15 justify-end gap-10 pr-10 font-mitr text-1.5xl items-center text-amber-950">
-          <span>Menu</span>
-          <span>Gallery</span>
-          <span>About Us</span>
-          <span>Reviews</span>
-          <span>Contact Us</span>
+
+          <HashLink smooth to="/#menu-section"><motion.button 
+          className='cursor-pointer'
+          whileHover={{scale: 1.06}}
+          whiteTap={{ scale: 1}}
+          >Menu</motion.button>
+          </HashLink>
+
+          <HashLink smooth to="/#gallery-section"><motion.button 
+          className='cursor-pointer'
+          whileHover={{scale: 1.06}}
+          whiteTap={{ scale: 1}}
+          >Gallery</motion.button>
+          </HashLink>
+
+          <HashLink smooth to="/#review-section"><motion.button 
+          className='cursor-pointer'
+          whileHover={{scale: 1.06}}
+          whiteTap={{ scale: 1}}
+          >Reviews</motion.button>
+          </HashLink>
+
+          <HashLink smooth to="/#contact-section"><motion.button 
+          className='cursor-pointer'
+          whileHover={{scale: 1.06}}
+          whiteTap={{ scale: 1}}
+          >Contact Us</motion.button>
+          </HashLink>
           
           {user ? (
             <>

@@ -9,13 +9,11 @@ const Home = () => {
 
   return (
     <div class="bg-pink-200">
-      <Section1 />
-      <div id="menu">
-      <Section2 />
-      </div>
-      <Section3 />
-      <Section4 />
-      <Section5 />
+      <div><Section1 /></div>
+      <div id="menu-section"><Section2 /></div>
+      <div id="gallery-section"><Section3 /></div>
+      <div id="review-section"><Section4 /></div>
+      <div id="contact-section"><Section5 /></div>
     </div>
   )
 }
