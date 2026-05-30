@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, Navigate } from 'react-router-dom'  // ← ONE import only
 import { motion } from 'framer-motion'
 import axios from 'axios'
 import { useAuth } from '../context/AuthContext'
@@ -8,7 +8,7 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  const { login } = useAuth()
+  const { login, user } = useAuth()
   const navigate = useNavigate()
 
   if (user) {
@@ -26,7 +26,6 @@ const Login = () => {
       })
       
       login(res.data.user, res.data.token)
-      alert('Login successful!')
       navigate('/')
     } catch (err) {
       setError(err.response?.data?.msg || 'Login failed. Please check your credentials.')

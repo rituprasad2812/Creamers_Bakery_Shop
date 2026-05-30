@@ -9,8 +9,9 @@ import MenuPage from './pages/MenuPage'
 import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
-import OrderSuccess from './pages/OrderSuccess'
 import CustomOrders from './pages/CustomOrders'
+import OrderConfirmation from './pages/OrderConfirmation'
+import OrderHistory from './pages/OrderHistory'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
@@ -22,14 +23,13 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/menu/custom-orders" element={<ProtectedRoute><CustomOrders /></ProtectedRoute>} />
             <Route path="/menu/:category" element={<MenuPage />} />
             <Route path="/product/:id" element={<ProductDetail />} />
-            
-            {/* Protected Routes - Login Required */}
             <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
             <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
-            <Route path="/menu/custom-orders" element={<ProtectedRoute><CustomOrders /></ProtectedRoute>} />
-            <Route path="/order-success" element={<ProtectedRoute><OrderSuccess /></ProtectedRoute>} />
+            <Route path="/order-confirmation/:orderId" element={<ProtectedRoute><OrderConfirmation /></ProtectedRoute>} />
+            <Route path="/orders" element={<ProtectedRoute><OrderHistory /></ProtectedRoute>} />
           </Routes>
         </Router>
       </CartProvider>

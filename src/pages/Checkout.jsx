@@ -4,9 +4,11 @@ import Navbar from '../components/section1/Navbar'
 import { motion } from 'framer-motion'
 import { useCart } from '../context/CartContext'
 import axios from 'axios'
+import { useAuth } from '../context/AuthContext'
 
 const Checkout = () => {
-  const { cartItems, cartTotal, cartCount } = useCart()
+  const { cartItems, cartTotal, cartCount, clearCart } = useCart()  // ✅ Added clearCart
+  const { user } = useAuth()  // ✅ Added user
   const navigate = useNavigate()
   const deliveryFee = 50
 
@@ -37,22 +39,32 @@ const Checkout = () => {
 
     try {
       const orderData = {
+        userId: user.id,
         items: cartItems.map(item => ({
           productId: item._id,
           name: item.name,
           price: item.price,
           quantity: item.quantity,
           selectedOption: item.selectedOption,
-          cakeName: item.cakeName || null
+          cakeName: item.cakeName || null,
+          image: item.image
         })),
         subtotal: cartTotal,
         deliveryFee: formData.orderType === 'delivery' ? deliveryFee : 0,
         total: cartTotal + (formData.orderType === 'delivery' ? deliveryFee : 0),
-        ...formData
+        customerName: formData.customerName,
+        phone: formData.phone,
+        email: formData.email,
+        orderType: formData.orderType,
+        address: formData.address,
+        deliveryDate: formData.deliveryDate,
+        deliveryTime: formData.deliveryTime,
+        paymentMethod: formData.paymentMethod
       }
 
-      await axios.post('http://localhost:5000/api/orders', orderData)
-      navigate('/order-success')
+      const res = await axios.post('http://localhost:5000/api/orders', orderData)
+      clearCart()
+      navigate(`/order-confirmation/${res.data.orderId}`)  // ✅ Fixed backticks
     } catch (err) {
       console.log(err)
       alert('Failed to place order. Please try again.')
@@ -68,7 +80,7 @@ const Checkout = () => {
 
           {/* Left: Customer & Delivery Details */}
           <div className="space-y-8">
-            
+
             {/* Customer Details */}
             <div className="bg-white rounded-3xl p-8 shadow-xl">
               <h2 className="font-playball text-3xl text-amber-950 mb-6 border-b-2 border-pink-200 pb-2">
@@ -239,11 +251,10 @@ const Checkout = () => {
               Order Summary
             </h2>
 
-            {/* Items */}
             <div className="space-y-4 max-h-80 overflow-y-auto mb-6">
               {cartItems.map((item, index) => (
                 <div key={index} className="flex gap-4 border-b border-pink-100 pb-4">
-                  <div 
+                  <div
                     className="w-16 h-16 rounded-xl bg-cover bg-center flex-shrink-0"
                     style={{ backgroundImage: `url(/assets/${item.image})` }}
                   />
@@ -260,7 +271,6 @@ const Checkout = () => {
               ))}
             </div>
 
-            {/* Totals */}
             <div className="space-y-3 border-t-2 border-pink-200 pt-4">
               <div className="flex justify-between font-mitr">
                 <span className="text-gray-600">Subtotal ({cartCount} items):</span>
@@ -280,7 +290,6 @@ const Checkout = () => {
               </div>
             </div>
 
-            {/* Place Order Button */}
             <motion.button
               onClick={handlePlaceOrder}
               className="w-full bg-pink-400 text-white py-4 rounded-full font-mitr text-xl hover:bg-pink-500 border-2 border-amber-950 mt-6"
