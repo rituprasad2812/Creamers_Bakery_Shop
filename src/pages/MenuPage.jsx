@@ -10,7 +10,7 @@ const MenuPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    axios.get(`http://localhost:5000/api/products/category/${category}`)
+    axios.get(`https://creamers-bakery-shop.onrender.com/api/products/category/${category}`)
       .then(res => setProducts(res.data))
       .catch(err => console.log(err))
   }, [category])

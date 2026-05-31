@@ -61,7 +61,7 @@ const ProductDetail = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
 
-    axios.get(`http://localhost:5000/api/products/${id}`)
+    axios.get(`https://creamers-bakery-shop.onrender.com/api/products/${id}`)
       .then(res => {
         setProduct(res.data)
         const options = categoryOptions[res.data.category]
@@ -71,7 +71,7 @@ const ProductDetail = () => {
       })
       .catch(err => console.log(err))
 
-    axios.get(`http://localhost:5000/api/reviews/product/${id}`)
+    axios.get(`https://creamers-bakery-shop.onrender.com/api/reviews/product/${id}`)
       .then(res => setReviews(res.data))
       .catch(err => console.log(err))
   }, [id])
@@ -79,7 +79,7 @@ const ProductDetail = () => {
   const handleSubmitReview = (e) => {
     e.preventDefault()
 
-    axios.post('http://localhost:5000/api/reviews', {
+    axios.post('https://creamers-bakery-shop.onrender.com/api/reviews', {
       productId: id,
       name: reviewName,
       rating: reviewRating,

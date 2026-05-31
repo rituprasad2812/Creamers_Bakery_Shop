@@ -6,7 +6,7 @@ const Reviews = () => {
   const [reviews, setReviews] = useState([])
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/reviews/all')
+    axios.get('https://creamers-bakery-shop.onrender.com/api/reviews/all')
       .then(res => setReviews(res.data))
       .catch(err => console.log(err))
   }, [])

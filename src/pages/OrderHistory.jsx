@@ -14,7 +14,7 @@ const OrderHistory = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    axios.get(`http://localhost:5000/api/orders/user/${user.id}`)
+    axios.get(`https://creamers-bakery-shop.onrender.com/api/orders/user/${user.id}`)
       .then(res => {
         setOrders(res.data)
         setLoading(false)

@@ -10,7 +10,7 @@ const OrderConfirmation = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    axios.get(`http://localhost:5000/api/orders/${orderId}`)
+    axios.get(`https://creamers-bakery-shop.onrender.com/api/orders/${orderId}`)
       .then(res => setOrder(res.data))
       .catch(err => console.log(err))
   }, [orderId])

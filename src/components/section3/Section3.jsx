@@ -8,7 +8,7 @@ const Section3 = () => {
   const [products, setProducts] = useState([])
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/products/bestsellers')
+    axios.get('https://creamers-bakery-shop.onrender.com/api/products/bestsellers')
       .then(res => setProducts(res.data))
       .catch(err => console.log(err))
   }, [])

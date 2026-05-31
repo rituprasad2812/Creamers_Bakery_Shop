@@ -87,7 +87,7 @@ const CustomOrders = () => {
                 balance: prices.balance
             }
 
-            await axios.post('http://localhost:5000/api/custom-orders', orderData)
+            await axios.post('https://creamers-bakery-shop.onrender.com/api/custom-orders', orderData)
             alert('Custom order submitted successfully! We will contact you soon.')
             navigate('/')
         } catch (err) {

@@ -62,7 +62,7 @@ const Checkout = () => {
         paymentMethod: formData.paymentMethod
       }
 
-      const res = await axios.post('http://localhost:5000/api/orders', orderData)
+      const res = await axios.post('https://creamers-bakery-shop.onrender.com/api/orders', orderData)
       clearCart()
       navigate(`/order-confirmation/${res.data.orderId}`)  // ✅ Fixed backticks
     } catch (err) {
