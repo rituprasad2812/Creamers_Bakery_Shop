@@ -7,7 +7,7 @@ const Hero = () => {
   const text = "Creamers";
 
   return (
-    <div className="font-mitr w-full h-full bg-[url('assets/herocake.jpg')] bg-cover bg-center bg-no-repeat flex flex-col justify-center pl-40  text-amber-950">
+    <div className="font-mitr w-full h-full bg-[url('/assets/herocake.jpg')] bg-cover bg-center bg-no-repeat flex flex-col justify-center pl-40  text-amber-950">
 
       <div className="font-playball text-9xl">
         {text.split("").map((char, index) => (

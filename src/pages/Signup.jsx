@@ -9,7 +9,7 @@ const Signup = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  const { login } = useAuth()
+  const { login, user } = useAuth()
   const navigate = useNavigate()
 
   if (user) {
@@ -37,7 +37,7 @@ const Signup = () => {
 
   return (
     <div className="flex">
-      <div className="min-h-screen w-285 bg-[url('assets/contactbg.avif')] bg-no-repeat bg-cover"></div>
+      <div className="min-h-screen w-285 bg-[url('/assets/contactbg.avif')] bg-no-repeat bg-cover"></div>
 
       <div className="bg-pink-200 w-145 border-l-2 border-amber-950 pt-20">
         <p className="font-playball font-semibold text-6xl text-center text-amber-950">Time for Treats!</p>
