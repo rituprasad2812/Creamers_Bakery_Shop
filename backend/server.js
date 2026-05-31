@@ -5,7 +5,10 @@ require('dotenv').config()
 
 const app = express()
 
-app.use(cors())
+app.use(cors({
+  origin: ['https://creamersbakery.netlify.app/', 'http://localhost:5173'],
+  credentials: true
+}))
 app.use(express.json())
 
 mongoose.connect(process.env.MONGO_URI)
