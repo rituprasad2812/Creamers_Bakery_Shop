@@ -6,9 +6,9 @@ require('dotenv').config()
 const app = express()
 
 app.use(cors({
-  origin: ['https://creamersbakery.netlify.app/', 'http://localhost:5173'],
-  credentials: true
+  origin: '*'
 }))
+
 app.use(express.json())
 
 mongoose.connect(process.env.MONGO_URI)
@@ -18,8 +18,8 @@ mongoose.connect(process.env.MONGO_URI)
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/products', require('./routes/products'))
 app.use('/api/reviews', require('./routes/reviews'))
-app.use('/api/custom-orders', require('./routes/customOrders'))
 app.use('/api/orders', require('./routes/orders'))
+app.use('/api/custom-orders', require('./routes/customOrders'))
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 10000
 app.listen(PORT, () => console.log(`🚀 Server on port ${PORT}`))
